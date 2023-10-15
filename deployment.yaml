@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memoryeater-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memoryeater
+  template:
+    metadata:
+      labels:
+        app: memoryeater
+    spec:
+      containers:
+      - name: memoryeater
+        image: trucolo/memoryeater:1.0 # Troque pelo caminho correto se não estiver usando Docker Hub
+        resources:
+          limits:
+            memory: "2200Mi"
+        env:
+        - name: JAVA_OPTS
+          value: "-XX:MaxRAMPercentage=90.0"
